@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Supplier.Domain
+namespace SupplierProject.Domain
 {
     class Program
     {

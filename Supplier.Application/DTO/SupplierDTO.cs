@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Supplier.Application.DTO
+namespace SupplierProject.Application.DTO
 {
     public class SupplierDTO
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Supplier.Infra
+namespace SupplierProject.Infra
 {
     class Program
     {

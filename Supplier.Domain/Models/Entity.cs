@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Supplier.Domain.Models
+namespace SupplierProject.Domain.Models
 {
     public abstract class Entity
     {
