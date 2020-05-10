@@ -29,6 +29,8 @@ namespace SupplierProject.Services
             services.AddControllers();
 
             services.AddDbContextConfig(Configuration);
+
+            services.AddAutoMapperConfig();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
