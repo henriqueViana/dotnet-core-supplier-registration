@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier.Application", "Supplier.Application\Supplier.Application.csproj", "{9AC8529B-BA88-445C-A4C1-BF68561DB7C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Application", "Supplier.Application\SupplierProject.Application.csproj", "{9AC8529B-BA88-445C-A4C1-BF68561DB7C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier.Domain", "Supplier.Domain\Supplier.Domain.csproj", "{6595418A-61A9-48D3-9608-424BF2C7EED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Domain", "Supplier.Domain\SupplierProject.Domain.csproj", "{6595418A-61A9-48D3-9608-424BF2C7EED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier.Infra", "Supplier.Infra\Supplier.Infra.csproj", "{1FE3AAF0-194C-457E-8F00-5DD7013ACB12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Infra", "Supplier.Infra\SupplierProject.Infra.csproj", "{1FE3AAF0-194C-457E-8F00-5DD7013ACB12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier.Services", "Supplier.Services\Supplier.Services.csproj", "{9FB74319-15E9-49F3-AAA6-53165917303C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Services", "Supplier.Services\SupplierProject.Services.csproj", "{9FB74319-15E9-49F3-AAA6-53165917303C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
