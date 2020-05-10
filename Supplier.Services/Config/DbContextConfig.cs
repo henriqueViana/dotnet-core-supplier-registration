@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SupplierProject.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,10 @@ namespace SupplierProject.Services.Config
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-
+            services.AddDbContext<SupplierDbContext>(options => 
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
         }
     }
 }

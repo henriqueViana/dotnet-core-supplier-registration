@@ -6,7 +6,7 @@ using SupplierProject.Domain.Models;
 
 namespace SupplierProject.Infra.Data.Context
 {
-    class SupplierDbContext : DbContext
+    public class SupplierDbContext : DbContext
     {
         public SupplierDbContext(DbContextOptions<SupplierDbContext> options) : base(options) { }
 
