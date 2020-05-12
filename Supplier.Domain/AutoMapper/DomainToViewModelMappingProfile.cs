@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SupplierProject.Application.AutoMapper
+namespace SupplierProject.Domain.AutoMapper
 {
     public class DomainToViewModelMappingProfile : Profile
     {

@@ -9,6 +9,8 @@ namespace SupplierProject.Domain.Interfaces.Repositories
     public interface ISupplierRepository : IRepository<Supplier>
     {
         Task<Supplier> GetSupplierAndAddress(Guid Id);
+        /*
         Task<Supplier> GetSupplierAndAddressAndProducts(Guid Id);
+        */
     }
 }

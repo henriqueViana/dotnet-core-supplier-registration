@@ -10,8 +10,11 @@ namespace SupplierProject.Domain.Interfaces.Repositories
     {
         Task<List<TEntity>> GetAll();
         Task<TEntity> GetById(Guid Id);
-        Task Create(TEntity entity);
+        Task<int> Create(TEntity entity);
+        /*
+
         Task Update(TEntity entity);
         Task Destroy(Guid id);
+        */
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using SupplierProject.Application.AutoMapper;
-using SupplierProject.Application.DTO;
+using SupplierProject.Domain.AutoMapper;
 using SupplierProject.Domain.Models;
 using System;
 using System.Collections.Generic;
