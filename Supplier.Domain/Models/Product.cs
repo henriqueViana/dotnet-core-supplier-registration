@@ -14,7 +14,7 @@ namespace SupplierProject.Domain.Models
         public bool Active { get; set; }
         public Guid SupplierId { get; set; }
 
-        // Replationship
+        // Relationship
         public Supplier Supplier { get; set; }
     }
 }

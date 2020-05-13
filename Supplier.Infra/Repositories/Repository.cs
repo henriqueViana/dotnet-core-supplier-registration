@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SupplierProject.Domain.Interfaces.Repositories;
 using SupplierProject.Domain.Models;
 using SupplierProject.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,16 @@ namespace SupplierProject.Infra.Repositories
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
+
+            var changedEntriesCopy = _context.ChangeTracker.Entries()
+             .Where(e => e.State == EntityState.Added ||
+                         e.State == EntityState.Modified ||
+                         e.State == EntityState.Deleted)
+             .ToList();
+
+            foreach (var entry in changedEntriesCopy)
+                entry.State = EntityState.Detached;
+
         }
 
         public virtual async Task<List<TEntity>> GetAll()

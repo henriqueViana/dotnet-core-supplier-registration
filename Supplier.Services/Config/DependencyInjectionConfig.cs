@@ -19,7 +19,9 @@ namespace SupplierProject.Services.Config
 
             services.AddScoped<SupplierDbContext>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IProductService, ProductService>();
             return services;
         }
     }

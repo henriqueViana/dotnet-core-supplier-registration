@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SupplierProject.Domain.Interfaces.Repositories
 {
-    interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
-        Task<IEnumerable<Product>> GetProductsBySupplierId();
+        //Task<IEnumerable<Product>> GetProductsBySupplierId(Guid id);
+        void GetProductsBySupplierId(Guid id);
     }
 }
