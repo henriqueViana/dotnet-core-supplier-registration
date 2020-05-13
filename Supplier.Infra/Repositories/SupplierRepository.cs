@@ -20,5 +20,13 @@ namespace SupplierProject.Infra.Repositories
                 .FirstOrDefaultAsync(column => column.Id == id);
         }
 
+        public async Task<Supplier> GetSupplierAndAddressAndProducts(Guid id)
+        {
+            return await _context.Suppliers.AsNoTracking()
+                .Include(column => column.Address)
+                .Include(column => column.Products)
+                .FirstOrDefaultAsync(column => column.Id == id);
+        }
+
     }
 }

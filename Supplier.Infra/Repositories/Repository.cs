@@ -36,6 +36,18 @@ namespace SupplierProject.Infra.Repositories
             return await _context.SaveChangesAsync();
         }
 
+        public virtual async Task<int> Update(TEntity entity)
+        {
+            _dbSet.Update(entity);
+            return await _context.SaveChangesAsync();
+        }
+
+        public virtual async Task<int> Destroy(Guid id)
+        {
+            _dbSet.Remove(new TEntity { Id = id });
+            return await _context.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
             _context?.Dispose();

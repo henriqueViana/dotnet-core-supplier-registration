@@ -11,10 +11,7 @@ namespace SupplierProject.Domain.Interfaces.Repositories
         Task<List<TEntity>> GetAll();
         Task<TEntity> GetById(Guid Id);
         Task<int> Create(TEntity entity);
-        /*
-
-        Task Update(TEntity entity);
-        Task Destroy(Guid id);
-        */
+        Task<int> Update(TEntity entity);
+        Task<int> Destroy(Guid id);
     }
 }

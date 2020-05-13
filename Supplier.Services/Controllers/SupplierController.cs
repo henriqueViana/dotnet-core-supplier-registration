@@ -29,7 +29,7 @@ namespace SupplierProject.Services.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<SupplierDTO>> GetById(Guid id)
         {
-            var supplier = await _supplierService.GetById(id);
+            var supplier = await _supplierService.GetSupplierAndAddressAndProducts(id);
 
             if (supplier == null) return NotFound();
 
@@ -44,6 +44,35 @@ namespace SupplierProject.Services.Controllers
             if (!result) return BadRequest();
 
             return Created("api/fornecedores", supplierDTO);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<SupplierDTO>> Update(Guid id, SupplierDTO supplierDTO)
+        {
+            var result = await _supplierService.Update(id, supplierDTO);
+
+            if (!result) return BadRequest();
+
+            return Ok(supplierDTO);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult<SupplierDTO>> Destroy(Guid id)
+        {
+            var supplier = await GetSuppier(id);
+
+            if (supplier == null) return BadRequest();
+
+            var result = await _supplierService.Destroy(id);
+
+            if (!result) return BadRequest();
+
+            return Ok(supplier);
+        }
+
+        private async Task<SupplierDTO> GetSuppier(Guid id)
+        {
+            return await _supplierService.GetById(id);
         }
     }
 }

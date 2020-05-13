@@ -40,5 +40,33 @@ namespace SupplierProject.Domain.Services
 
             return true;
         }
+
+        public async Task<bool> Update(Guid id, SupplierDTO supplierDTO)
+        {
+            if (supplierDTO.Id != id) return false;
+
+            await _supplierRepository.Update(_mapper.Map<Supplier>(supplierDTO));
+
+            return true;
+        }
+
+        public async Task<bool> Destroy(Guid id)
+        {
+            var result = await _supplierRepository.Destroy(id);
+
+            if (result == 0) return false;
+
+            return true;
+        }
+
+        public async Task<SupplierDTO> GetSupplierAndAddress(Guid id)
+        {
+            return _mapper.Map<SupplierDTO>(await _supplierRepository.GetSupplierAndAddress(id));
+        }
+
+        public async Task<SupplierDTO> GetSupplierAndAddressAndProducts(Guid id)
+        {
+            return _mapper.Map<SupplierDTO>(await _supplierRepository.GetSupplierAndAddressAndProducts(id));
+        }
     }
 }
