@@ -3,6 +3,7 @@ using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Repositories;
 using SupplierProject.Domain.Interfaces.Services;
 using SupplierProject.Domain.Models;
+using SupplierProject.Domain.Validations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,6 +36,8 @@ namespace SupplierProject.Domain.Services
         {
             var product = _mapper.Map<Product>(productDTO);
 
+            if (!Validate(new ProductValidation(), product)) return false;
+
             var result = await _productRepository.Create(product);
 
             if (result == 0) return false;
@@ -47,6 +50,9 @@ namespace SupplierProject.Domain.Services
             if (productDTO.Id != id) return false;
 
             var product = _mapper.Map<Product>(productDTO);
+
+            if (!Validate(new ProductValidation(), product)) return false;
+
             var result = await _productRepository.Update(product);
 
             if (result == 0) return false;
