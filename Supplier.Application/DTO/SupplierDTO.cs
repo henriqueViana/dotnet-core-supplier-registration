@@ -15,7 +15,7 @@ namespace SupplierProject.Application.DTO
         [MaxLength(100, ErrorMessage = "O campo nome deve ter no máximo 100 caracteres")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "O camop documento é obrigatório")]
+        [Required(ErrorMessage = "O campo documento é obrigatório")]
         [MinLength(11, ErrorMessage = "O campo documento deve ter no mínimo 11 caracteres")]
         [MaxLength(14, ErrorMessage = "O campo documento deve ter no máximo 14 caracteres")]
         public string Document { get; set; }

@@ -3,6 +3,7 @@ using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Repositories;
 using SupplierProject.Domain.Interfaces.Services;
 using SupplierProject.Domain.Models;
+using SupplierProject.Domain.Validations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SupplierProject.Domain.Services
 {
-    public class SupplierService : ISupplierService
+    public class SupplierService : Service, ISupplierService
     {
         private readonly IMapper _mapper;
         private readonly ISupplierRepository _supplierRepository;
@@ -33,8 +34,11 @@ namespace SupplierProject.Domain.Services
 
         public async Task<bool> Create(SupplierDTO supplierDTO)
         {
-            // supplier validation
-            var result = await _supplierRepository.Create(_mapper.Map<Supplier>(supplierDTO));
+            var supplier = _mapper.Map<Supplier>(supplierDTO);
+
+            if (!Validate(new SupplierValidation(), supplier)) return false;
+
+            var result = await _supplierRepository.Create(supplier);
 
             if (result == 0) return false;
 
