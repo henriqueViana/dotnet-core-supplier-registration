@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Services;
 
@@ -39,6 +41,21 @@ namespace SupplierProject.Services.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductDTO>> Create(ProductDTO product)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var imgName = CustomFileName(product.Image);
+
+            if (!UploadFile(product.ImageUpload, imgName))
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Falha ao carregar a imagem"
+                });
+            }
+
+            product.Image = imgName;
+
             var result = await _productService.Create(product);
 
             if (!result) return BadRequest();
@@ -49,6 +66,8 @@ namespace SupplierProject.Services.Controllers
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<ProductDTO>> Update(Guid id, ProductDTO product)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             var result = await _productService.Update(id, product);
 
             if (!result) return BadRequest();
@@ -73,6 +92,33 @@ namespace SupplierProject.Services.Controllers
         private async Task<ProductDTO> GetProduct(Guid id)
         {
             return await _productService.GetById(id);
+        }
+
+        private bool UploadFile(string file, string fileName)
+        {
+            if (string.IsNullOrEmpty(file))
+            {
+                ModelState.AddModelError(string.Empty, "A imagem do produto é obrigatória");
+                return false;
+            }
+
+            var fileDataByteArray = Convert.FromBase64String(file);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgs", fileName);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com o mesmo nome");
+                return false;
+            }
+
+            System.IO.File.WriteAllBytes(filePath, fileDataByteArray);
+
+            return true;
+        }
+
+        private string CustomFileName(string fileName)
+        {
+            return Guid.NewGuid() + "_" + fileName;
         }
     }
 }

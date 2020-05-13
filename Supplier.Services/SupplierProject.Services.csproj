@@ -25,5 +25,9 @@
     <ProjectReference Include="..\Supplier.Infra\SupplierProject.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imgs\" />
+  </ItemGroup>
+
 
 </Project>

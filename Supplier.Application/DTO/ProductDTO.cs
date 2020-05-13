@@ -22,6 +22,8 @@ namespace SupplierProject.Application.DTO
 
         public string Image { get; set; }
 
+        public string ImageUpload { get; set; }
+
         [Required(ErrorMessage = "O campo preço é obrigatório")]
         public decimal Price { get; set; }
 

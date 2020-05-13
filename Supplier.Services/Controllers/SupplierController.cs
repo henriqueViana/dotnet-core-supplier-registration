@@ -39,6 +39,8 @@ namespace SupplierProject.Services.Controllers
         [HttpPost]
         public async Task<ActionResult<SupplierDTO>> Create(SupplierDTO supplierDTO)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             var result = await _supplierService.Create(supplierDTO);
 
             if (!result) return BadRequest();
@@ -49,6 +51,8 @@ namespace SupplierProject.Services.Controllers
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<SupplierDTO>> Update(Guid id, SupplierDTO supplierDTO)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             var result = await _supplierService.Update(id, supplierDTO);
 
             if (!result) return BadRequest();
