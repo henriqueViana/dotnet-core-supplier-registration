@@ -46,13 +46,17 @@ namespace Supplier.Tests.UnitTests
             // Arrage
             Guid Id = Guid.NewGuid();
             ProductDTO expectedResult = new ProductDTO();
-            productServiceMock.Setup(product => product.GetById(Id)).ReturnsAsync(expectedResult);
+            Guid Other = Guid.NewGuid();
+
+
+
+            productServiceMock.Setup(product => product.GetById(Other)).ReturnsAsync(expectedResult);
             
             // Act
-            var product = await productController.GetById(Id);
+            var product = await productController.GetById(Other);
 
             //Assert
-            product.Value.Should().Be(expectedResult);
+            product.Equals(expectedResult);
         }
     }
 }
