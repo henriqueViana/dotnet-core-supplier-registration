@@ -8,14 +8,13 @@ namespace SupplierProject.Domain.Services
 {
     public abstract class Service
     {
-
-        protected bool Validate<TValidation, TEntity>(TValidation validation, TEntity entity) 
+        protected bool Validate<TValidation, TEntity>(TValidation validation, TEntity entity)
             where TValidation : AbstractValidator<TEntity> where TEntity : Entity
         {
-            var validator = validation.Validate(entity);
+            var validate = validation.Validate(entity);
 
-            if (validator.IsValid) return true;
-            
+            if (validate.IsValid) return true;
+
             return false;
         }
     }

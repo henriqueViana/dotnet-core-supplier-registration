@@ -6,6 +6,7 @@ using SupplierProject.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,16 +21,11 @@ namespace SupplierProject.Infra.Repositories
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
+        }
 
-            var changedEntriesCopy = _context.ChangeTracker.Entries()
-             .Where(e => e.State == EntityState.Added ||
-                         e.State == EntityState.Modified ||
-                         e.State == EntityState.Deleted)
-             .ToList();
-
-            foreach (var entry in changedEntriesCopy)
-                entry.State = EntityState.Detached;
-
+        public async Task<IEnumerable<TEntity>> GetByLambdaExpression(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public virtual async Task<List<TEntity>> GetAll()

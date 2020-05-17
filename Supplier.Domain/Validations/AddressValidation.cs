@@ -15,12 +15,12 @@ namespace SupplierProject.Domain.Validations
                 .Length(3, 100).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(c => c.Number)
-                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
-                // regex number
+                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+                .Matches("^[0-9]*$").WithMessage("O campo {PropertyName} só aceita valores numéricos");
 
             RuleFor(c => c.Zipcode)
-                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
-            // regex number
+                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+                .Matches("^[0-9]*$").WithMessage("O campo {PropertyName} só aceita valores numéricos");
 
             RuleFor(c => c.Neighborhood)
                 .NotEmpty().WithMessage("O campo {propertyName} é obrigatório")
