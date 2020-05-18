@@ -32,6 +32,8 @@ namespace SupplierProject.Services
 
             services.AddDbContextConfig(Configuration);
 
+            services.AddIdentityConfig(Configuration);
+
             services.AddAutoMapperConfig();
 
             services.AddDependencyInjectionConfig();
@@ -50,6 +52,8 @@ namespace SupplierProject.Services
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

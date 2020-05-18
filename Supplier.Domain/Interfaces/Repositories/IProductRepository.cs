@@ -9,5 +9,6 @@ namespace SupplierProject.Domain.Interfaces.Repositories
     public interface IProductRepository : IRepository<Product>
     {
         Task<IEnumerable<Product>> GetProductsBySupplierId(Guid id);
+        Task<Product> GetProductAndSupplier(Guid id);
     }
 }

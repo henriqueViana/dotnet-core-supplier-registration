@@ -16,16 +16,16 @@ namespace SupplierProject.Domain.Services
     {
         private readonly IMapper _mapper;
         private readonly ISupplierRepository _supplierRepository;
-        private readonly IAddressRepository _addressRepository;
+        //private readonly IAddressRepository _addressRepository;
 
         public SupplierService(
             ISupplierRepository supplierRepository,
-            IMapper mapper, 
-            IAddressRepository addressRepository)
+            IMapper mapper
+            )
         {
             _supplierRepository = supplierRepository;
             _mapper = mapper;
-            _addressRepository = addressRepository;
+            //_addressRepository = addressRepository;
         }
 
         public async Task<IEnumerable<SupplierDTO>> GetAll()
@@ -65,13 +65,14 @@ namespace SupplierProject.Domain.Services
             var hasProduct = _supplierRepository.GetSupplierAndAddressAndProducts(id).Result.Products.Any();
 
             if (hasProduct) return false;
-
+            /*
             var address = await _addressRepository.GetAddressBySupplierId(id);
 
             if (address != null)
             {
                 await _addressRepository.Destroy(address.Id);
             }
+            */
 
             var result = await _supplierRepository.Destroy(id);
 
@@ -93,7 +94,7 @@ namespace SupplierProject.Domain.Services
         public void Dispose()
         {
             _supplierRepository?.Dispose();
-            _addressRepository?.Dispose();
+            // _addressRepository?.Dispose();
         }
     }
 }
