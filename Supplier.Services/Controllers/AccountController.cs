@@ -5,18 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SupplierProject.Application.DTO.User;
+using SupplierProject.Services.Config;
 
 namespace SupplierProject.Services.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : AuthController
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AccountController(
+            SignInManager<IdentityUser> signInManager, 
+            UserManager<IdentityUser> userManager,
+            IOptions<AppSettings> appSettings) : base(appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -39,7 +44,10 @@ namespace SupplierProject.Services.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok(registerUser);
+                return Ok(new {
+                    user = registerUser,
+                    token = GenerateJwt()
+                });
             }
 
             return BadRequest(new
@@ -58,7 +66,11 @@ namespace SupplierProject.Services.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(loginUser);
+                return Ok(new 
+                { 
+                    user = loginUser,
+                    token = GenerateJwt()
+                });
             }
 
             if (result.IsLockedOut)
