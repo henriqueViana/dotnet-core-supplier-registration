@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SupplierProject.Application.DTO;
@@ -32,7 +33,7 @@ namespace SupplierProject.Services.Controllers
             var supplier = await _supplierService.GetSupplierAndAddressAndProducts(id);
 
             if (supplier == null) return NotFound();
-
+            
             return Ok(supplier);
         }
 
