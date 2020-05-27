@@ -14,6 +14,7 @@ namespace SupplierProject.Domain.Interfaces.Services
         Task<bool> Create(SupplierDTO supplier);
         Task<bool> Update(Guid id, SupplierDTO supplier);
         Task<bool> Destroy(Guid id);
+        Task<bool> IsExist(Guid id);
         Task<SupplierDTO> GetSupplierAndAddress(Guid id);
         Task<SupplierDTO> GetSupplierAndAddressAndProducts(Guid id);
     }

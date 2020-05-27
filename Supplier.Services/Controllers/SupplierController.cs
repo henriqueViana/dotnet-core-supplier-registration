@@ -54,11 +54,15 @@ namespace SupplierProject.Services.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
+            var isExist = await _supplierService.IsExist(id);
+
+            if (!isExist) return NotFound();
+
             var result = await _supplierService.Update(id, supplierDTO);
 
             if (!result) return BadRequest();
 
-            return Ok(supplierDTO);
+            return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
@@ -66,7 +70,7 @@ namespace SupplierProject.Services.Controllers
         {
             var supplier = await GetSuppier(id);
 
-            if (supplier == null) return BadRequest();
+            if (supplier == null) return NotFound();
 
             var result = await _supplierService.Destroy(id);
 
@@ -75,7 +79,7 @@ namespace SupplierProject.Services.Controllers
             return Ok(supplier);
         }
 
-        private async Task<SupplierDTO> GetSuppier(Guid id)
+        public async Task<SupplierDTO> GetSuppier(Guid id)
         {
             return await _supplierService.GetById(id);
         }

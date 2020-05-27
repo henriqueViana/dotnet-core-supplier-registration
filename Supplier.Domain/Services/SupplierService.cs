@@ -91,6 +91,15 @@ namespace SupplierProject.Domain.Services
             return _mapper.Map<SupplierDTO>(await _supplierRepository.GetSupplierAndAddressAndProducts(id));
         }
 
+        public async Task<bool> IsExist(Guid id)
+        {
+            var supplier = await _supplierRepository.GetById(id);
+
+            if (supplier == null) return false;
+
+            return true;
+        }
+
         public void Dispose()
         {
             _supplierRepository?.Dispose();
