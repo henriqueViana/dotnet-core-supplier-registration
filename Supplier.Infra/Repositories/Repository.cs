@@ -35,7 +35,9 @@ namespace SupplierProject.Infra.Repositories
 
         public virtual async Task<TEntity> GetById(Guid Id)
         {
-            return await _dbSet.FindAsync(Id);
+            var result = await _dbSet.FindAsync(Id);
+            _context.Entry(result).State = EntityState.Detached;
+            return result;
         }
 
         public virtual async Task<int> Create(TEntity entity)
