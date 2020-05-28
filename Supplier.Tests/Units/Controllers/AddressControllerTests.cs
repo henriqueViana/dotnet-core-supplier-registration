@@ -14,7 +14,7 @@ using Xunit;
 
 namespace Supplier.Tests.Units
 {
-    public class AddressControllerTest
+    public class AddressControllerTests
     {
         [Fact(DisplayName = "Update Address ok")]
         [Trait("AddressController", "Update ok")]
