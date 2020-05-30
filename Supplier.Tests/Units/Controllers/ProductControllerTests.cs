@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Supplier.Tests.Fixtures;
 using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Services;
 using SupplierProject.Services.Controllers;
@@ -13,23 +14,23 @@ using Xunit;
 
 namespace Supplier.Tests.Units.Controllers
 {
+    [Collection(nameof(ProductCollection))]
     public class ProductControllerTests
     {
+        private readonly ProductFixture _productFixture;
+        public ProductControllerTests(ProductFixture productFixture)
+        {
+            _productFixture = productFixture;
+        }
+
         [Fact(DisplayName = "Product getById success")]
         [Trait("ProductController","GetById success")]
         public async Task ProductController_GetProductById_ShouldReturnCorrectProduct()
         {
             // Arrange
             var mock = new Mock<IProductService>();
+            var product = _productFixture.GetValidProduct();
             var productId = Guid.NewGuid();
-
-            var product = new ProductDTO
-            {
-                Id = productId,
-                Name = "Produto 2",
-                Description = "Um novo produto",
-                Price = 10
-            };
 
             mock.Setup(service => service.GetById(productId)).ReturnsAsync(product);
 

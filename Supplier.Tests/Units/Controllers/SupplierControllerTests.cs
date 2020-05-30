@@ -9,11 +9,19 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using System.Net;
+using Supplier.Tests.Fixtures;
 
 namespace Supplier.Tests
 {
+    [Collection(nameof(SupplierCollection))]
     public class SupplierControllerTests
     {
+        private readonly SupplierFixture _supplierFixture;
+        public SupplierControllerTests(SupplierFixture supplierFixture)
+        {
+            _supplierFixture = supplierFixture;
+        }
+
         [Fact(DisplayName = "Should Return all Suppliers")]
         [Trait("SupplierController", "GetAll")]
         public async Task GetAll()
@@ -22,21 +30,8 @@ namespace Supplier.Tests
             var mock = new Mock<ISupplierService>();
             var suppliers = new List<SupplierDTO>();
 
-            var supplier1 = new SupplierDTO
-            {
-                Id = Guid.NewGuid(),
-                Name = "Supplier 1",
-                Document = "12345678985",
-                Address = null
-            };
-
-            var supplier2 = new SupplierDTO
-            {
-                Id = Guid.NewGuid(),
-                Name = "Supplier 2",
-                Document = "12345678985",
-                Address = null
-            };
+            var supplier1 = _supplierFixture.GetValidSupplier();
+            var supplier2 = _supplierFixture.GetValidSupplier();
 
             suppliers.Add(supplier1);
             suppliers.Add(supplier2);
@@ -45,7 +40,6 @@ namespace Supplier.Tests
 
             // Act
             SupplierController controller = new SupplierController(mock.Object);
-
             var result = await controller.GetAll();
 
             // Arrange
@@ -59,14 +53,8 @@ namespace Supplier.Tests
         public async Task GetById_SpecificSupplier_ShouldReturnASupplier()
         {
             // Arrange
-            var supplierId = Guid.NewGuid();
-            var supplier = new SupplierDTO 
-            {
-                 Id = supplierId,
-                 Name = "Supplier name",
-                 Document = "78945612356",
-                 Address =  null
-            };
+            var supplier = _supplierFixture.GetValidSupplier();
+            var supplierId = supplier.Id;
 
             var mock = new Mock<ISupplierService>();
             mock.Setup(service => service.GetSupplierAndAddressAndProducts(supplierId)).ReturnsAsync(supplier);
@@ -89,15 +77,9 @@ namespace Supplier.Tests
         {
             // Arrange
             var mock = new Mock<ISupplierService>();
-            var supplier = new SupplierDTO
-            {
-                Id = Guid.NewGuid(),
-                Name = "Supplier name",
-                Document = "78945612356",
-                Address = null
-            };
+            var supplier = _supplierFixture.GetValidSupplier();
 
-            mock.Setup<Task<bool>>(service => service.Create(supplier)).ReturnsAsync(true);
+            mock.Setup(service => service.Create(supplier)).ReturnsAsync(true);
 
             // Act
             SupplierController controller = new SupplierController(mock.Object);
@@ -117,13 +99,7 @@ namespace Supplier.Tests
         {
             // Arrange
             var mock = new Mock<ISupplierService>();
-            var supplier = new SupplierDTO
-            {
-                Id = Guid.NewGuid(),
-                Name = "Supplier name",
-                Document = "78945612356",
-                Address = null
-            };
+            var supplier = _supplierFixture.GetValidSupplier();
 
             mock.Setup(service => service.Create(supplier)).ReturnsAsync(false);
 
@@ -145,14 +121,8 @@ namespace Supplier.Tests
         {
             // Arrange
             var mock = new Mock<ISupplierService>();
-            var supplierId = Guid.NewGuid();
-            var supplier = new SupplierDTO
-            {
-                Id = supplierId,
-                Name = "Supplier 1",
-                Document = "12345678985",
-                Address = null
-            };
+            var supplier = _supplierFixture.GetValidSupplier();
+            var supplierId = supplier.Id;
 
             mock.Setup(service => service.Update(supplierId, supplier)).ReturnsAsync(true);
 
@@ -173,14 +143,8 @@ namespace Supplier.Tests
         {
             // Arrange
             var mock = new Mock<ISupplierService>();
-            var supplierId = Guid.NewGuid();
-            var supplier = new SupplierDTO
-            {
-                Id = supplierId,
-                Name = "Supplier name",
-                Document = "78945612356",
-                Address = null
-            };
+            var supplier = _supplierFixture.GetValidSupplier();
+            var supplierId = supplier.Id;
 
             mock.Setup(service => service.IsExist(supplierId)).ReturnsAsync(false);
 
@@ -201,15 +165,8 @@ namespace Supplier.Tests
         {
             // Arrange
             var mock = new Mock<ISupplierService>();
-            var supplierId = Guid.NewGuid();
+            var supplier = _supplierFixture.GetValidSupplier();
             var otherId = Guid.NewGuid();
-            var supplier = new SupplierDTO
-            {
-                Id = supplierId,
-                Name = "Supplier name",
-                Document = "78945612356",
-                Address = null
-            };
 
             mock.Setup(service => service.Update(otherId, supplier)).ReturnsAsync(false);
 

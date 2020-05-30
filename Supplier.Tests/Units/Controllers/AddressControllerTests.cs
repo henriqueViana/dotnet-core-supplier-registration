@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Supplier.Tests.Fixtures;
 using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Services;
 using SupplierProject.Domain.Models;
@@ -14,27 +15,23 @@ using Xunit;
 
 namespace Supplier.Tests.Units
 {
+    [Collection(nameof(AddressCollection))]
     public class AddressControllerTests
     {
+        private readonly AddressFixture _addressFixture;
+        public AddressControllerTests(AddressFixture addressFixture)
+        {
+            _addressFixture = addressFixture;
+        }
+
         [Fact(DisplayName = "Update Address ok")]
         [Trait("AddressController", "Update ok")]
         public async Task AddressUpdate_AddressCorrect_ShouldReturnNoContent()
         {
             // Arrange
             var mock = new Mock<IAddressService>();
-            var addressId = Guid.NewGuid();
-            var address = new AddressDTO
-            {
-                Id = addressId,
-                PublicPlace = "Rua de teste",
-                Complement = null,
-                Number = "50",
-                Zipcode = "12345678",
-                Neighborhood = "Centro",
-                City = "Rio de Janeiro",
-                State = "RJ",
-                SupplierId = Guid.NewGuid()
-            };
+            var address = _addressFixture.GetValidAddress();
+            var addressId = address.Id;
 
             mock.Setup(service => service.Update(addressId, address)).ReturnsAsync(true);
 
@@ -55,19 +52,8 @@ namespace Supplier.Tests.Units
         {
             // Arrange
             var mock = new Mock<IAddressService>();
-            var addressId = Guid.NewGuid();
-            var address = new AddressDTO
-            {
-                Id = Guid.NewGuid(),
-                PublicPlace = "Rua de teste",
-                Complement = null,
-                Number = "50",
-                Zipcode = "12345678",
-                Neighborhood = "Centro",
-                City = "Rio de Janeiro",
-                State = "RJ",
-                SupplierId = Guid.NewGuid()
-            };
+            var address = _addressFixture.GetValidAddress();
+            var addressId = address.Id;
 
             mock.Setup(service => service.Update(addressId, address)).ReturnsAsync(false);
 
