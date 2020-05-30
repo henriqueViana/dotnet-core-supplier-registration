@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Supplier.Tests.Fixtures;
+using SupplierProject.Tests.Fixtures;
 using SupplierProject.Application.DTO;
 using SupplierProject.Domain.Interfaces.Services;
 using SupplierProject.Services.Controllers;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Supplier.Tests.Units.Controllers
+namespace SupplierProject.Tests.Units.Controllers
 {
     [Collection(nameof(ProductCollection))]
     public class ProductControllerTests

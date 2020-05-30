@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using System.Net;
-using Supplier.Tests.Fixtures;
+using SupplierProject.Tests.Fixtures;
 
-namespace Supplier.Tests
+namespace SupplierProject.Tests
 {
     [Collection(nameof(SupplierCollection))]
     public class SupplierControllerTests
@@ -24,17 +24,12 @@ namespace Supplier.Tests
 
         [Fact(DisplayName = "Should Return all Suppliers")]
         [Trait("SupplierController", "GetAll")]
-        public async Task GetAll()
+        public async Task GetAll_SupplierList_ShouldReturnSupplierList()
         {
             // Arrange
+            int supplierCount = 5;
             var mock = new Mock<ISupplierService>();
-            var suppliers = new List<SupplierDTO>();
-
-            var supplier1 = _supplierFixture.GetValidSupplier();
-            var supplier2 = _supplierFixture.GetValidSupplier();
-
-            suppliers.Add(supplier1);
-            suppliers.Add(supplier2);
+            var suppliers = _supplierFixture.GetValidSupplierList(supplierCount);
 
             mock.Setup(service => service.GetAll()).ReturnsAsync(suppliers);
 
@@ -44,7 +39,7 @@ namespace Supplier.Tests
 
             // Arrange
             result.Should().Equal(suppliers)
-                .And.HaveCount(2)
+                .And.HaveCount(supplierCount)
                 .And.ContainItemsAssignableTo<SupplierDTO>();
         }
 

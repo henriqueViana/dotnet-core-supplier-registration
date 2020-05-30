@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Supplier.Tests.Fixtures
+namespace SupplierProject.Tests.Fixtures
 {
     [CollectionDefinition(nameof(ProductCollection))]
     public class ProductCollection : ICollectionFixture<ProductFixture> { }

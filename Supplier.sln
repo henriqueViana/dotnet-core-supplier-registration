@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Infra", "Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Services", "Supplier.Services\SupplierProject.Services.csproj", "{9FB74319-15E9-49F3-AAA6-53165917303C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier.Tests", "Supplier.Tests\Supplier.Tests.csproj", "{63028E9B-8436-4F6F-93D5-69F0815F78F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplierProject.Tests", "Supplier.Tests\SupplierProject.Tests.csproj", "{63028E9B-8436-4F6F-93D5-69F0815F78F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
