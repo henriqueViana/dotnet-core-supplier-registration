@@ -12,6 +12,7 @@ using AutoMapper;
 using SupplierProject.Domain.Services;
 using FluentAssertions;
 using SupplierProject.Tests.Config;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SupplierProject.Tests.Units.Services
 {
@@ -24,8 +25,10 @@ namespace SupplierProject.Tests.Units.Services
             _supplierFixture = supplierFixture;
         }
 
-        [Fact]
-        public async Task GetAll()
+        [Fact(DisplayName = "Should Return all Suppliers")]
+        [Trait("SupplierService", "GetAll")]
+
+        public async Task GetAll_SupplierDTOList_ShouldReturnSupplierDTOList()
         {
             // Arrange
             int supplierCount = 5;
@@ -42,6 +45,25 @@ namespace SupplierProject.Tests.Units.Services
             // Assert
             result.Should().HaveCount(supplierCount)
                 .And.ContainItemsAssignableTo<SupplierDTO>();
+        }
+
+        [Fact(DisplayName = "Shoud Return a specific Supplier by Id")]
+        [Trait("SupplierService", "GetById")]
+        public async Task GetById_SpecificSupplierDTO_ShouldReturnSupplierDTO()
+        {
+            // Arrange
+            var mockRepo = new Mock<ISupplierRepository>();
+            var supplier = _supplierFixture.GetValidSupplierModel();
+            var supplierId = supplier.Id;
+
+            mockRepo.Setup(repo => repo.GetById(supplierId)).ReturnsAsync(supplier);
+
+            // Act
+            SupplierService service = new SupplierService(mockRepo.Object, AutoMapperSingleton.Mapper);
+            var result = await service.GetById(supplierId);
+            
+            // Assert
+            result.Should().As<SupplierDTO>();
         }
     }
 }
