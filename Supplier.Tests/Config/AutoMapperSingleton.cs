@@ -14,18 +14,22 @@ namespace SupplierProject.Tests.Config
             {
                 if (_mapper == null)
                 {
-                    var mappingConfig = new MapperConfiguration(mc =>
-                    {
-                        mc.AddProfile(new DomainToViewModelMappingProfile());
-                        mc.AddProfile(new ViewModelToDomainMappingProfile());
-                    });
-
-                    IMapper mapper = mappingConfig.CreateMapper();
-                    _mapper = mapper;
+                    _mapper = GetInstanceConfig();
                 }
 
                 return _mapper;
             } 
+        }
+
+        private static IMapper GetInstanceConfig()
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new DomainToViewModelMappingProfile());
+                mc.AddProfile(new ViewModelToDomainMappingProfile());
+            });
+
+            return mappingConfig.CreateMapper();
         }
     }
 }
