@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Xunit;
 using SupplierProject.Domain.Models;
 using AutoMapper;
+using SupplierProject.Domain.Services;
+using FluentAssertions;
+using SupplierProject.Tests.Config;
 
 namespace SupplierProject.Tests.Units.Services
 {
@@ -19,6 +22,26 @@ namespace SupplierProject.Tests.Units.Services
         public SupplierServiceTests(SupplierFixture supplierFixture)
         {
             _supplierFixture = supplierFixture;
+        }
+
+        [Fact]
+        public async Task GetAll()
+        {
+            // Arrange
+            int supplierCount = 5;
+            var mockRepo = new Mock<ISupplierRepository>();
+
+            var suppliers = _supplierFixture.GetValidSupplierListModel(supplierCount);
+
+            mockRepo.Setup(repo => repo.GetAll()).ReturnsAsync(suppliers);
+
+            // Act
+            SupplierService service = new SupplierService(mockRepo.Object, AutoMapperSingleton.Mapper);
+            var result = await service.GetAll();
+
+            // Assert
+            result.Should().HaveCount(supplierCount)
+                .And.ContainItemsAssignableTo<SupplierDTO>();
         }
     }
 }

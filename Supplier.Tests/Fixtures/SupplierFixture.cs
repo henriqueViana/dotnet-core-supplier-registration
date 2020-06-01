@@ -58,6 +58,20 @@ namespace SupplierProject.Tests.Fixtures
             return supplier;
         }
 
+        public List<Supplier> GetValidSupplierListModel(int quantity)
+        {
+            var suppliers = new Faker<Supplier>("pt_BR")
+                .CustomInstantiator(faker => new Supplier
+                {
+                    Id = faker.Random.Guid(),
+                    Name = faker.Company.CompanyName(),
+                    Document = faker.Company.Cnpj(),
+                    Address = null
+                });
+
+            return suppliers.Generate(quantity);
+        }
+
         public void Dispose()
         {
             
