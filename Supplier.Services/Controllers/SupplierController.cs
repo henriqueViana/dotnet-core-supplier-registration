@@ -19,6 +19,7 @@ namespace SupplierProject.Services.Controllers
         public SupplierController(ISupplierService supplierService)
         {
             _supplierService = supplierService;
+            var i = 0;
         }
 
         [HttpGet]
